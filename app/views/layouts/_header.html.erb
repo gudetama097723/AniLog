@@ -8,15 +8,25 @@
           <%= link_to "Top", root_path, class: "nav-link" %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to "About", about_path, class: "nav-link" %>
-        </li>
-
         <% if authenticated? %>
+          <li class="nav-item">
+            <%= link_to "投稿一覧", anime_reviews_path, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "マイページ", mypage_path, class: "nav-link" %>
+          </li>
+
           <li class="nav-item">
             <%= link_to "ログアウト", session_path, data: { turbo_method: :delete }, class: "nav-link" %>
           </li>
+
         <% else %>
+
+          <li class="nav-item">
+            <%= link_to "About", about_path, class: "nav-link" %>
+          </li>
+
           <li class="nav-item">
             <%= link_to "ログイン", new_session_path, class: "nav-link" %>
           </li>
