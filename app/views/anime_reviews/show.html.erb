@@ -1,0 +1,16 @@
+<h1 class="mb-3"><%= @anime_review.title %></h1>
+
+<p><%= @anime_review.body %></p>
+
+<p>評価: <%= @anime_review.rating %></p>
+
+<p>投稿者: <%= @anime_review.user.name %></p>
+
+<% if @anime_review.user == Current.user %>
+  <%= link_to "編集", edit_anime_review_path(@anime_review), class: "btn btn-primary" %>
+  <%= link_to "削除", anime_review_path(@anime_review),
+      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+      class: "btn btn-danger" %>
+<% end %>
+
+<%= link_to "一覧へ戻る", anime_reviews_path, class: "btn btn-secondary" %>
