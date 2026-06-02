@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>投稿一覧</h1>
+  <%= link_to "新規投稿", new_anime_review_path, class: "btn btn-primary" %>
+</div>
+
+<% @anime_reviews.each do |anime_review| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2 class="h5 card-title"><%= anime_review.title %></h2>
+      <p class="card-text"><%= anime_review.body %></p>
+      <p class="card-text">評価: <%= anime_review.rating %></p>
+      <%= link_to "詳細を見る", anime_review_path(anime_review), class: "btn btn-outline-primary btn-sm" %>
+    </div>
+  </div>
+<% end %>

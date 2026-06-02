@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+
   get "users/new"
   resource :session
   resources :passwords, param: :token
   resources :users, only: [:new, :create]
+  resources :anime_reviews
 
   root "homes#top"
   get "about" => "homes#about"
