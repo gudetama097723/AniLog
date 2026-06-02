@@ -17,6 +17,16 @@
   </div>
 
   <div class="mb-3">
+    <%= f.label :image, "プロフィール画像", class: "form-label" %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :introduction, "自己紹介", class: "form-label" %>
+    <%= f.text_area :introduction, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="mb-3">
     <%= f.label :email_address, "メールアドレス", class: "form-label" %>
     <%= f.email_field :email_address, class: "form-control" %>
   </div>

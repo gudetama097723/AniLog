@@ -1,11 +1,42 @@
-<div class="text-center py-5">
-  <h1 class="display-4 fw-bold">AniLog</h1>
+<div class="container">
+  <section class="py-5 text-center bg-light rounded-4 shadow-sm">
+    <%= image_tag "anilog_logo.png",
+        class: "img-fluid mb-4",
+        style: "max-width: 500px; width: 100%; height: auto;" %>
 
-  <p class="lead mt-3">
-    アニメ作品の感想や評価を記録・共有できる、アニメ特化型レビューSNSサイトです。
-  </p>
+    <p class="lead mt-3">
+      アニメ作品の感想や評価を記録・共有できる、アニメ特化型レビューSNSサイトです。
+    </p>
 
-  <div class="mt-4">
-    <%= link_to "Aboutを見る", about_path, class: "btn btn-primary" %>
+    <%= link_to "Aboutを見る", about_path, class: "btn btn-primary mt-3 px-4" %>
+  </section>
+
+  <div class="row mt-5 g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title">記録する</h5>
+          <p class="card-text">視聴したアニメの感想や評価を残せます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title">共有する</h5>
+          <p class="card-text">他のユーザーのレビューを見て交流できます。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <h5 class="card-title">見つける</h5>
+          <p class="card-text">気になる作品や新しいアニメと出会えます。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
