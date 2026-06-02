@@ -9,8 +9,14 @@
   </div>
 </div>
 
+<% if @user.image.attached? %>
+  <%= image_tag @user.image, class: "profile-image mb-3" %>
+<% else %>
+  <%= image_tag "no_image.png", class: "profile-image mb-3" %>
+<% end %>
+
 <p>ユーザー名: <%= @user.name %></p>
-<p>メールアドレス: <%= @user.email_address %></p>
+<p>自己紹介: <%= @user.introduction %></p>
 
 <h2 class="h4 mt-5 mb-3">自分の投稿一覧</h2>
 
