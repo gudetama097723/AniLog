@@ -1,3 +1,7 @@
+body {
+  background-image: asset-url("hoge.jpg");
+}
+
 html {
   overflow-y: scroll;
 }
