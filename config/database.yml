@@ -26,14 +26,14 @@ test:
 production:
   primary:
     <<: *default
-    database: <%= ENV['mysql'] %>
+    database: <%= ENV['DB_NAME'] %>
     adapter: mysql2
     encoding: utf8mb4
     charset: utf8mb4
     collation: utf8mb4_general_ci
-    host: <%= ENV['rds-mysql-server.crk6som8kd2n.ap-northeast-1.rds.amazonaws.com'] %>
-    username: <%= ENV['root'] %>
-    password: <%= ENV['kamijotoma3'] %>
+    host: <%= ENV['DB_HOST'] %>
+    username: <%= ENV['DB_USERNAME'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
   cache:
     <<: *default
     database: storage/production_cache.sqlite3
