@@ -40,7 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_02_064404) do
   end
 
   create_table "anime_reviews", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "title"
     t.text "body"
     t.integer "rating"
@@ -50,7 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_02_064404) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false
