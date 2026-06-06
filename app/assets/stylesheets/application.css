@@ -28,3 +28,10 @@ html {
   border-radius: 50%;
   object-fit: cover;
 }
+
+.profile-image-sm {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+}
