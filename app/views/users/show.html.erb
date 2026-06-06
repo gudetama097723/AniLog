@@ -1,0 +1,26 @@
+<h1 class="mb-4">ユーザー詳細</h1>
+
+<% if @user.image.attached? %>
+  <%= image_tag @user.image, class: "profile-image mb-3" %>
+<% else %>
+  <%= image_tag "no_image.png", class: "profile-image mb-3" %>
+<% end %>
+
+<p>ユーザー名: <%= @user.name %></p>
+<p>自己紹介: <%= @user.introduction.presence || "未設定" %></p>
+
+<% if @user == Current.user %>
+  <%= link_to "編集", edit_user_path(@user), class: "btn btn-primary" %>
+<% end %>
+
+<h2 class="h4 mt-5 mb-3">投稿一覧</h2>
+
+<% @anime_reviews.each do |anime_review| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="h5 card-title"><%= anime_review.title %></h3>
+      <p class="card-text"><%= anime_review.body %></p>
+      <%= link_to "詳細を見る", anime_review_path(anime_review), class: "btn btn-outline-primary btn-sm" %>
+    </div>
+  </div>
+<% end %>

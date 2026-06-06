@@ -22,4 +22,5 @@ jobs:
         ~/.rbenv/shims/bundle exec rails assets:precompile RAILS_ENV=production &&
         ~/.rbenv/shims/bundle exec rails db:migrate RAILS_ENV=production &&
         pkill -f puma || true &&
+        sleep 3 &&
         nohup ~/.rbenv/shims/bundle exec puma -C config/puma.rb -e production > log/puma.log 2>&1 &'

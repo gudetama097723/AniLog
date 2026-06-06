@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   allow_unauthenticated_access only: [:new, :create]
 
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
 
   def mypage
@@ -28,10 +28,18 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_update_params)
-      redirect_to mypage_path, notice: "ユーザー情報を更新しました。"
+      redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def index
+    @users = User.order(created_at: :desc)
+  end
+
+  def show
+    @anime_reviews = @user.anime_reviews.order(created_at: :desc)
   end
 
   def destroy
