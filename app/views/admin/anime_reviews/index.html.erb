@@ -1,0 +1,27 @@
+<h1>レビュー管理</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>投稿者</th>
+      <th>評価</th>
+      <th>投稿日</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anime_reviews.each do |anime_review| %>
+      <tr>
+        <td><%= anime_review.id %></td>
+        <td><%= anime_review.title %></td>
+        <td><%= anime_review.user.name %></td>
+        <td><%= anime_review.rating %></td>
+        <td><%= l anime_review.created_at, format: :short %></td>
+        <td><%= link_to "詳細", admin_anime_review_path(anime_review) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

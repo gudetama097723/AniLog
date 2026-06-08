@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get "genres/index"
+    get "comments/index"
+    get "anime_reviews/index"
+    get "anime_reviews/show"
     get "users/index"
     get "users/show"
     get    "sign_in",  to: "sessions#new"
@@ -22,6 +26,9 @@ Rails.application.routes.draw do
     delete "sign_out", to: "sessions#destroy"
 
     resources :users, only: [:index, :show, :destroy]
+    resources :anime_reviews, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :destroy]
+    resources :genres, only: [:index, :create, :update, :destroy]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
