@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get "mypage" => "users#mypage"
 
   resources :users, only: [:index, :show,:new, :create, :edit, :update, :destroy]
-  resources :anime_reviews
+  resources :anime_reviews do
+    resources :comments, only: [:create, :destroy]
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 

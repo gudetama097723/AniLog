@@ -13,4 +13,31 @@
       class: "btn btn-danger" %>
 <% end %>
 
+
+<h2>コメント</h2>
+
+<% @comments.each do |comment| %>
+  <div>
+    <p><%= comment.user.name %></p>
+    <p><%= comment.body %></p>
+
+    <% if comment.user == Current.user %>
+      <%= link_to "削除",
+        anime_review_comment_path(@anime_review, comment),
+        data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+        class: "btn btn-danger" %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_with model: [@anime_review, Comment.new] do |f| %>
+  <div>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.submit "送信" %>
+  </div>
+<% end %>
+
 <%= link_to "一覧へ戻る", anime_reviews_path, class: "btn btn-secondary" %>

@@ -7,6 +7,7 @@ class AnimeReviewsController < ApplicationController
   end
 
   def show
+    @comments = @anime_review.comments.order(created_at: :desc)
   end
 
   def new
