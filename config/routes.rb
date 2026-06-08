@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get "searches/index"
   resource :session
   resources :passwords, param: :token
 
   root "homes#top"
   get "about" => "homes#about"
   get "mypage" => "users#mypage"
+  get "search" => "searches#index"
 
   resources :users, only: [:index, :show,:new, :create, :edit, :update, :destroy]
   resources :anime_reviews do

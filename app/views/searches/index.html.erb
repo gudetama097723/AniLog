@@ -1,0 +1,34 @@
+<h1>検索結果</h1>
+
+<p>検索対象: <%= @target %></p>
+<p>キーワード: <%= @keyword %></p>
+
+<% if @target == "anime_reviews" %>
+  <h2>投稿の検索結果</h2>
+
+  <% if @anime_reviews.any? %>
+    <% @anime_reviews.each do |anime_review| %>
+      <div>
+        <h3><%= anime_review.title %></h3>
+        <p><%= anime_review.body %></p>
+        <%= link_to "詳細を見る", anime_review_path(anime_review) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>該当する投稿はありません。</p>
+  <% end %>
+<% elsif @target == "users" %>
+  <h2>ユーザーの検索結果</h2>
+
+  <% if @users.any? %>
+    <% @users.each do |user| %>
+      <div>
+        <h3><%= user.name %></h3>
+        <p><%= user.introduction %></p>
+        <%= link_to "詳細を見る", user_path(user) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>該当するユーザーはありません。</p>
+  <% end %>
+<% end %>
