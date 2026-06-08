@@ -1,0 +1,23 @@
+<h1>ユーザー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ユーザー名</th>
+      <th>メールアドレス</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email_address %></td>
+        <td><%= link_to "詳細", admin_user_path(user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,17 @@
+<h1>管理者ログイン</h1>
+
+<%= form_with url: admin_sign_in_path, local: true do |f| %>
+  <div>
+    <%= f.label :login_id, "ID" %><br>
+    <%= f.text_field :login_id %>
+  </div>
+
+  <div>
+    <%= f.label :password, "パスワード" %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.submit "ログイン" %>
+  </div>
+<% end %>
