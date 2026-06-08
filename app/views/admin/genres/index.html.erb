@@ -1,1 +1,48 @@
 <h1>ジャンル管理</h1>
+
+<h2>ジャンル追加</h2>
+
+<%= form_with model: [:admin, @genre], local: true do |f| %>
+  <div>
+    <%= f.label :name, "ジャンル名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.submit "追加" %>
+  </div>
+<% end %>
+
+<h2>ジャンル一覧</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ジャンル名</th>
+      <th>作成日</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @genres.each do |genre| %>
+      <tr>
+        <td><%= genre.id %></td>
+        <td>
+          <%= form_with model: [:admin, genre], local: true do |f| %>
+            <%= f.text_field :name %>
+            <%= f.submit "更新" %>
+          <% end %>
+        </td>
+        <td><%= l genre.created_at, format: :short %></td>
+        <td>
+          <%= link_to "削除",
+            admin_genre_path(genre),
+            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+            class: "btn btn-danger" %>
+        </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
