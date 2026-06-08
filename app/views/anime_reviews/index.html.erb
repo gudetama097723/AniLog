@@ -38,6 +38,10 @@
         <%= truncate(anime_review.body, length: 150) %>
       </p>
 
+      <p>
+       コメント数: <%= anime_review.comments.count %>
+      </p>
+
       <div class="mb-3">
         ⭐ <%= anime_review.rating %> / 5
       </div>
