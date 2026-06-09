@@ -83,7 +83,7 @@ anime_reviews = [
 ]
 
 anime_reviews.each do |review_params|
-  review = AnimeReview.find_or_create_by!(
+  review = AnimeReview.find_or_initialize_by(
     user: review_params[:user],
     title: review_params[:title]
   )
