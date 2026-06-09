@@ -1,35 +1,45 @@
-<h1>コメント管理</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">コメント管理</h1>
+    <p class="text-muted mb-0">投稿されたコメントの確認と削除を行います。</p>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>コメント</th>
-      <th>投稿者</th>
-      <th>レビュー</th>
-      <th>投稿日</th>
-      <th>削除</th>
-    </tr>
-  </thead>
+<div class="card shadow-sm border-0">
+  <div class="card-body p-0">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>コメント</th>
+          <th>投稿者</th>
+          <th>レビュー</th>
+          <th>投稿日</th>
+          <th class="text-end">操作</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td><%= comment.id %></td>
-        <td><%= comment.body %></td>
-        <td><%= comment.user.name %></td>
-        <td>
-          <%= link_to comment.anime_review.title,
-              admin_anime_review_path(comment.anime_review) %>
-        </td>
-        <td><%= l comment.created_at, format: :short %></td>
-        <td>
-          <%= link_to "削除",
-              admin_comment_path(comment),
-              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-              class: "btn btn-danger" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td><%= comment.id %></td>
+            <td><%= truncate(comment.body, length: 50) %></td>
+            <td><%= comment.user.name %></td>
+            <td>
+              <%= link_to truncate(comment.anime_review.title, length: 30),
+                  admin_anime_review_path(comment.anime_review),
+                  class: "link-primary" %>
+            </td>
+            <td><%= l comment.created_at, format: :short %></td>
+            <td class="text-end">
+              <%= link_to "削除",
+                  admin_comment_path(comment),
+                  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                  class: "btn btn-outline-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

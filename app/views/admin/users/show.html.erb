@@ -1,14 +1,45 @@
-<h1>ユーザー詳細</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">ユーザー詳細</h1>
+    <p class="text-muted mb-0">ユーザー情報と退会処理を確認できます。</p>
+  </div>
 
-<p>ID: <%= @user.id %></p>
-<p>ユーザー名: <%= @user.name %></p>
-<p>メールアドレス: <%= @user.email_address %></p>
-<p>自己紹介: <%= @user.introduction %></p>
+  <%= link_to "一覧へ戻る",
+      admin_users_path,
+      class: "btn btn-outline-secondary btn-sm" %>
+</div>
 
-<%= link_to "一覧に戻る", admin_users_path %>
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3 text-muted">ID</dt>
+      <dd class="col-sm-9"><%= @user.id %></dd>
 
-<%= link_to "退会処理",
-    admin_user_path(@user),
-    data: { turbo_method: :delete, turbo_confirm: "本当に退会処理しますか？" },
-    class: "btn btn-danger" %>
+      <dt class="col-sm-3 text-muted">ユーザー名</dt>
+      <dd class="col-sm-9 fw-semibold"><%= @user.name %></dd>
 
+      <dt class="col-sm-3 text-muted">メールアドレス</dt>
+      <dd class="col-sm-9"><%= @user.email_address %></dd>
+
+      <dt class="col-sm-3 text-muted">自己紹介</dt>
+      <dd class="col-sm-9"><%= @user.introduction.presence || "未設定" %></dd>
+
+      <dt class="col-sm-3 text-muted">登録日</dt>
+      <dd class="col-sm-9"><%= l @user.created_at, format: :short %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="card border-danger">
+  <div class="card-body">
+    <h2 class="h5 text-danger">退会処理</h2>
+    <p class="text-muted">
+      このユーザーを削除します。関連する投稿やコメントも削除されます。
+    </p>
+
+    <%= link_to "退会処理する",
+        admin_user_path(@user),
+        data: { turbo_method: :delete, turbo_confirm: "本当に退会処理しますか？" },
+        class: "btn btn-danger" %>
+  </div>
+</div>
