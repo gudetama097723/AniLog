@@ -25,7 +25,11 @@
 
   <body class="bg-light">
 
-    <%= render "layouts/header" %>
+    <% if controller_path.start_with?("admin/") %>
+      <%= render "layouts/admin_header" %>
+    <% else %>
+      <%= render "layouts/header" %>
+    <% end %>
 
     <main class="container py-4">
       <% if flash[:notice] %>

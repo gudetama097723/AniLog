@@ -1,0 +1,14 @@
+<h1>ユーザー詳細</h1>
+
+<p>ID: <%= @user.id %></p>
+<p>ユーザー名: <%= @user.name %></p>
+<p>メールアドレス: <%= @user.email_address %></p>
+<p>自己紹介: <%= @user.introduction %></p>
+
+<%= link_to "一覧に戻る", admin_users_path %>
+
+<%= link_to "退会処理",
+    admin_user_path(@user),
+    data: { turbo_method: :delete, turbo_confirm: "本当に退会処理しますか？" },
+    class: "btn btn-danger" %>
+

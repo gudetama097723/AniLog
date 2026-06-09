@@ -1,0 +1,14 @@
+<h1>レビュー詳細</h1>
+
+<p>ID: <%= @anime_review.id %></p>
+<p>タイトル: <%= @anime_review.title %></p>
+<p>本文: <%= @anime_review.body %></p>
+<p>評価: <%= @anime_review.rating %></p>
+<p>投稿者: <%= @anime_review.user.name %></p>
+<p>投稿日: <%= l @anime_review.created_at, format: :short %></p>
+
+<%= link_to "一覧に戻る", admin_anime_reviews_path %>
+<%= link_to "レビュー削除",
+    admin_anime_review_path(@anime_review),
+    data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+    class: "btn btn-danger" %>

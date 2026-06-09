@@ -53,6 +53,6 @@ class AnimeReviewsController < ApplicationController
   end
 
   def anime_review_params
-    params.require(:anime_review).permit(:title, :body, :rating)
+    params.require(:anime_review).permit(:title, :body, :rating, :genre_id)
   end
 end

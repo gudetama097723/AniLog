@@ -4,6 +4,8 @@
 
 <p>評価: <%= @anime_review.rating %></p>
 
+<p>ジャンル: <%= @anime_review.genre&.name || "未設定" %></p>
+
 <p>投稿者: <%= @anime_review.user.name %></p>
 
 <% if @anime_review.user == Current.user %>

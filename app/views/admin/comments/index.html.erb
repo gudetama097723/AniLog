@@ -1,0 +1,35 @@
+<h1>コメント管理</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>コメント</th>
+      <th>投稿者</th>
+      <th>レビュー</th>
+      <th>投稿日</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.id %></td>
+        <td><%= comment.body %></td>
+        <td><%= comment.user.name %></td>
+        <td>
+          <%= link_to comment.anime_review.title,
+              admin_anime_review_path(comment.anime_review) %>
+        </td>
+        <td><%= l comment.created_at, format: :short %></td>
+        <td>
+          <%= link_to "削除",
+              admin_comment_path(comment),
+              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+              class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

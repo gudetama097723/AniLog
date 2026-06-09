@@ -15,6 +15,16 @@
   </div>
 
   <div class="mb-3">
+    <%= f.label :genre_id, "ジャンル", class: "form-label" %>
+    <%= f.collection_select :genre_id,
+        Genre.order(:name),
+        :id,
+        :name,
+        { prompt: "ジャンルを選択してください" },
+        class: "form-select" %>
+  </div>
+  
+  <div class="mb-3">
     <%= f.label :body, "本文", class: "form-label" %>
     <%= f.text_area :body, class: "form-control", rows: 5 %>
   </div>

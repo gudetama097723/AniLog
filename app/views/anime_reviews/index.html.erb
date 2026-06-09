@@ -34,6 +34,8 @@
         <%= anime_review.title %>
       </h2>
 
+      <p>ジャンル: <%= anime_review.genre&.name || "未設定" %></p>
+
       <p class="text-muted">
         <%= truncate(anime_review.body, length: 150) %>
       </p>

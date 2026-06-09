@@ -1,5 +1,6 @@
 class AnimeReview < ApplicationRecord
   belongs_to :user
+  belongs_to :genre, optional: true
   has_many :comments, dependent: :destroy
 
   validates :title, presence: true
