@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">レビュー詳細</h1>
+    <p class="text-muted mb-0">レビュー内容と投稿者情報を確認できます。</p>
+  </div>
+
+  <%= link_to "一覧へ戻る",
+      admin_anime_reviews_path,
+      class: "btn btn-outline-secondary btn-sm" %>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3 text-muted">ID</dt>
+      <dd class="col-sm-9"><%= @anime_review.id %></dd>
+
+      <dt class="col-sm-3 text-muted">タイトル</dt>
+      <dd class="col-sm-9 fw-semibold"><%= @anime_review.title %></dd>
+
+      <dt class="col-sm-3 text-muted">本文</dt>
+      <dd class="col-sm-9"><%= simple_format(@anime_review.body) %></dd>
+
+      <dt class="col-sm-3 text-muted">投稿者</dt>
+      <dd class="col-sm-9"><%= @anime_review.user.name %></dd>
+
+      <dt class="col-sm-3 text-muted">ジャンル</dt>
+      <dd class="col-sm-9">
+        <span class="badge text-bg-secondary">
+          <%= @anime_review.genre&.name || "未設定" %>
+        </span>
+      </dd>
+
+      <dt class="col-sm-3 text-muted">評価</dt>
+      <dd class="col-sm-9"><%= @anime_review.rating %></dd>
+
+      <dt class="col-sm-3 text-muted">投稿日</dt>
+      <dd class="col-sm-9"><%= l @anime_review.created_at, format: :short %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="card border-danger">
+  <div class="card-body">
+    <h2 class="h5 text-danger">レビュー削除</h2>
+    <p class="text-muted">
+      このレビューを削除します。レビューに紐づくコメントも削除されます。
+    </p>
+
+    <%= link_to "レビューを削除する",
+        admin_anime_review_path(@anime_review),
+        data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+        class: "btn btn-danger" %>
+  </div>
+</div>

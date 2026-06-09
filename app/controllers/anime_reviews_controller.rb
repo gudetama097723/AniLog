@@ -7,6 +7,7 @@ class AnimeReviewsController < ApplicationController
   end
 
   def show
+    @comments = @anime_review.comments.order(created_at: :desc)
   end
 
   def new
@@ -52,6 +53,6 @@ class AnimeReviewsController < ApplicationController
   end
 
   def anime_review_params
-    params.require(:anime_review).permit(:title, :body, :rating)
+    params.require(:anime_review).permit(:title, :body, :rating, :genre_id)
   end
 end

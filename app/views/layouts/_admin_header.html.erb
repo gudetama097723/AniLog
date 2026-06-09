@@ -1,0 +1,25 @@
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <%= link_to "AniLog Admin", admin_users_path, class: "navbar-brand fw-bold" %>
+
+      <% if session[:admin_id].present? %>
+        <div class="navbar-nav me-auto ms-4">
+          <%= link_to "ユーザー管理", admin_users_path, class: "nav-link" %>
+          <%= link_to "レビュー管理", admin_anime_reviews_path, class: "nav-link" %>
+          <%= link_to "コメント管理", admin_comments_path, class: "nav-link" %>
+          <%= link_to "ジャンル管理", admin_genres_path, class: "nav-link" %>
+        </div>
+
+        <%= link_to "ログアウト",
+            admin_sign_out_path,
+            data: { turbo_method: :delete },
+            class: "btn btn-outline-light btn-sm" %>
+      <% else %>
+        <%= link_to "ユーザーとしてログイン",
+            new_session_path,
+            class: "btn btn-outline-light btn-sm" %>
+      <% end %>
+    </div>
+  </nav>
+</header>

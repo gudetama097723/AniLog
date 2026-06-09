@@ -1,9 +1,53 @@
-<h1 class="mb-4">About</h1>
+<section class="py-5">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-7">
+      <p class="text-primary fw-semibold mb-2">About AniLog</p>
+      <h1 class="display-5 fw-bold mb-4">アニメの感想を、<br>あなたの言葉で残そう。</h1>
 
-<p>
-  AniLogは、アニメ作品の感想や視聴記録を管理し、他のユーザーとレビューを共有できるサービスです。
-</p>
+      <p class="lead text-muted mb-4">
+        AniLogは、アニメ作品の感想や視聴記録を管理し、<br>他のユーザーとレビューを共有できるサービスです。
+      </p>
 
-<p>
-  自分の感想を日記のように残したり、他のユーザーのレビューを参考にして新しい作品と出会うことができます。
-</p>
+      <p class="text-muted mb-4">
+        自分の感想を日記のように残したり、他のユーザーのレビューを参考にして新しい作品と出会うことができます。
+      </p>
+
+      <div class="d-flex gap-2">
+        <%= link_to "新規登録", new_user_path, class: "btn btn-primary rounded-pill px-4" %>
+        <%= link_to "ログイン", new_session_path, class: "btn btn-outline-primary rounded-pill px-4" %>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h2 class="h5 fw-bold mb-3">AniLogでできること</h2>
+
+          <div class="d-flex gap-3 mb-3">
+            <div class="badge text-bg-primary rounded-pill align-self-start">1</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">レビューを投稿</h3>
+              <p class="text-muted small mb-0">作品の感想や評価を記録できます。</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3 mb-3">
+            <div class="badge text-bg-primary rounded-pill align-self-start">2</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">コメントで交流</h3>
+              <p class="text-muted small mb-0">レビューに対してコメントを投稿できます。</p>
+            </div>
+          </div>
+
+          <div class="d-flex gap-3">
+            <div class="badge text-bg-primary rounded-pill align-self-start">3</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">検索で見つける</h3>
+              <p class="text-muted small mb-0">投稿やユーザーをキーワードで探せます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

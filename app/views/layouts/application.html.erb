@@ -25,7 +25,11 @@
 
   <body class="bg-light">
 
-    <%= render "layouts/header" %>
+    <% if controller_path.start_with?("admin/") %>
+      <%= render "layouts/admin_header" %>
+    <% else %>
+      <%= render "layouts/header" %>
+    <% end %>
 
     <main class="container py-4">
       <% if flash[:notice] %>
@@ -33,10 +37,16 @@
           <%= flash[:notice] %>
         </div>
       <% end %>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
       
       <%= yield %>
 
-      </main>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
