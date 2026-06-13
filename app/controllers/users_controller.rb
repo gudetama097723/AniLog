@@ -6,7 +6,19 @@ class UsersController < ApplicationController
 
   def mypage
     @user = Current.user
-    @anime_reviews = @user.anime_reviews.order(created_at: :desc)
+    @tab = params[:tab] == "following" ? "following" : "mine"
+
+    @anime_reviews =
+      if @tab == "following"
+        AnimeReview
+          .where(user_id: @user.following.select(:id))
+          .includes(:user, :genre)
+          .order(created_at: :desc)
+      else
+        @user.anime_reviews
+          .includes(:user, :genre)
+          .order(created_at: :desc)
+      end
   end
 
   def new
