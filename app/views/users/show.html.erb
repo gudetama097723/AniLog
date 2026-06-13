@@ -17,6 +17,35 @@
   コメント数: <%= @user.comments.count %>
 </p>
 
+<div class="d-flex gap-3 mb-3">
+  <%= link_to following_user_path(@user),
+      class: "text-decoration-none text-dark" do %>
+    フォロー <strong><%= @user.following.count %></strong>
+  <% end %>
+
+  <%= link_to followers_user_path(@user),
+      class: "text-decoration-none text-dark" do %>
+    フォロワー <strong><%= @user.followers.count %></strong>
+  <% end %>
+</div>
+
+<% if @user != Current.user %>
+  <% if Current.user.following?(@user) %>
+    <% relationship = Current.user.active_relationships.find_by(followed_id: @user.id) %>
+
+    <%= button_to "フォロー解除",
+    relationship_path(relationship),
+    method: :delete,
+    class: "btn btn-outline-danger" %>
+  <% else %>
+    <%= button_to "フォローする",
+        relationships_path,
+        params: { followed_id: @user.id },
+        method: :post,
+        class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
 <h2 class="h4 mt-5 mb-3">投稿一覧</h2>
 
 <% @anime_reviews.each do |anime_review| %>

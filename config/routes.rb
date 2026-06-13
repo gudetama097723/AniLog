@@ -8,7 +8,14 @@ Rails.application.routes.draw do
   get "mypage" => "users#mypage"
   get "search" => "searches#index"
 
-  resources :users, only: [:index, :show,:new, :create, :edit, :update, :destroy]
+  resources :users, only: [:index, :show,:new, :create, :edit, :update, :destroy] do
+    member do
+      get :following
+      get :followers
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
 
   resources :anime_reviews do
     resources :comments, only: [:create, :destroy]
