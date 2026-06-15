@@ -6,7 +6,19 @@ class UsersController < ApplicationController
 
   def mypage
     @user = Current.user
-    @anime_reviews = @user.anime_reviews.order(created_at: :desc)
+    @tab = params[:tab] == "following" ? "following" : "mine"
+
+    @anime_reviews =
+      if @tab == "following"
+        AnimeReview
+          .where(user_id: @user.following.select(:id))
+          .includes(:user, :genre)
+          .order(created_at: :desc)
+      else
+        @user.anime_reviews
+          .includes(:user, :genre)
+          .order(created_at: :desc)
+      end
   end
 
   def new
@@ -35,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.order(created_at: :desc)
+    @users = User.includes(:anime_reviews).order(created_at: :desc)
   end
 
   def show
@@ -48,6 +60,19 @@ class UsersController < ApplicationController
     redirect_to new_user_path
   end
 
+
+
+  def connections
+    @user = User.find(params[:id])
+    @tab = params[:tab] == "followers" ? "followers" : "following"
+
+    @users =
+      if @tab == "followers"
+        @user.followers.includes(:anime_reviews)
+      else
+        @user.following.includes(:anime_reviews)
+      end
+  end
 
   private
 
