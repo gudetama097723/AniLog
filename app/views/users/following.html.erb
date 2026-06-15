@@ -1,7 +1,0 @@
-<h1><%= @user.name %>さんのフォロー</h1>
-
-<% @users.each do |user| %>
-  <div>
-    <%= link_to user.name, user_path(user) %>
-  </div>
-<% end %>

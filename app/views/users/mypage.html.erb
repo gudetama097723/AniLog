@@ -14,17 +14,17 @@
           <%= @user.introduction.presence || "自己紹介はまだありません。" %>
         </p>
 
-        <div class="d-flex justify-content-center gap-4 mb-3">
-          <%= link_to following_user_path(@user),
-              class: "text-center text-decoration-none text-dark" do %>
-            <div class="fw-bold"><%= @user.following.count %></div>
-            <div class="text-muted small">フォロー</div>
+        <div class="d-flex justify-content-center gap-2 mb-4">
+          <%= link_to connections_user_path(@user, tab: "following"),
+              class: "btn btn-sm btn-light border text-dark px-3 rounded-2" do %>
+            <span class="text-muted">フォロー</span>
+            <strong class="ms-1"><%= @user.following.count %></strong>
           <% end %>
 
-          <%= link_to followers_user_path(@user),
-              class: "text-center text-decoration-none text-dark" do %>
-            <div class="fw-bold"><%= @user.followers.count %></div>
-            <div class="text-muted small">フォロワー</div>
+          <%= link_to connections_user_path(@user, tab: "followers"),
+              class: "btn btn-sm btn-light border text-dark px-3 rounded-2" do %>
+            <span class="text-muted">フォロワー</span>
+            <strong class="ms-1"><%= @user.followers.count %></strong>
           <% end %>
         </div>
 
@@ -70,61 +70,54 @@
     <% if @anime_reviews.any? %>
       <% @anime_reviews.each do |anime_review| %>
         <div class="card mb-3 shadow-sm border-0 rounded-3">
-  <div class="card-body">
-    <% if @tab == "following" %>
-      <div class="d-flex gap-3 mb-3">
-        <div class="text-center flex-shrink-0" style="width: 80px;">
-          <% if anime_review.user.image.attached? %>
-            <%= image_tag anime_review.user.image,
-                class: "profile-image-sm mb-2" %>
-          <% else %>
-            <%= image_tag "no_image.png",
-                class: "profile-image-sm mb-2" %>
-          <% end %>
+          <div class="card-body">
+            <% if @tab == "following" %>
+              <div class="d-flex gap-3 mb-3">
+                <div class="text-center flex-shrink-0" style="width: 80px;">
 
-          <%= link_to anime_review.user.name,
-              user_path(anime_review.user),
-              class: "d-block small fw-semibold text-decoration-none text-dark text-break" %>
+                  <% if anime_review.user.image.attached? %>
+                    <%= image_tag anime_review.user.image,class: "profile-image-sm mb-2" %>
+                  <% else %>
+                    <%= image_tag "no_image.png",class: "profile-image-sm mb-2" %>
+                  <% end %>
+
+                  <span class="d-block small fw-semibold text-dark text-break">
+                    <%= anime_review.user.name %>
+                  </span>
+                </div>
+
+                <div class="flex-grow-1 min-w-0">
+                  <h3 class="h6 fw-bold mb-2">
+                    <%= anime_review.title %>
+                  </h3>
+
+                  <p class="text-muted small mb-0">
+                    <%= truncate(anime_review.body, length: 100) %>
+                  </p>
+                </div>
+              </div>
+            <% else %>
+              <h3 class="h5 card-title fw-bold">
+                <%= anime_review.title %>
+              </h3>
+
+              <p class="card-text text-muted">
+            <%= truncate(anime_review.body, length: 120) %>
+              </p>
+            <% end %>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex align-items-center gap-3">
+                <p class="mb-0">評価: ⭐ <%= anime_review.rating %> / 5</p>
+                <%= link_to "詳細を見る", anime_review_path(anime_review, return_to: request.fullpath),class: "btn btn-outline-primary btn-sm rounded-pill" %>
+              </div>
+
+              <div class="text-muted small">
+                <%= anime_review.created_at.strftime("%Y年%-m月%-d日 %H:%M") %>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="flex-grow-1 min-w-0">
-          <h3 class="h6 fw-bold mb-2">
-            <%= anime_review.title %>
-          </h3>
-
-          <p class="text-muted small mb-0">
-            <%= truncate(anime_review.body, length: 100) %>
-          </p>
-        </div>
-      </div>
-    <% else %>
-      <h3 class="h5 card-title fw-bold">
-        <%= anime_review.title %>
-      </h3>
-
-      <p class="card-text text-muted">
-        <%= truncate(anime_review.body, length: 120) %>
-      </p>
-    <% end %>
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="d-flex align-items-center gap-3">
-        <p class="mb-0">評価: ⭐ <%= anime_review.rating %> / 5</p>
-
-        <%= link_to "詳細を見る",
-            anime_review_path(anime_review),
-            class: "btn btn-outline-primary btn-sm rounded-pill" %>
-
-      </div>
-
-      <div class="text-muted small">
-        <%= anime_review.created_at.strftime("%Y年%-m月%-d日 %H:%M") %>
-      </div>
-    </div>
-
-
-  </div>
-</div>
       <% end %>
 
     <% else %>
@@ -132,8 +125,7 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body text-center py-5">
           <p class="text-muted mb-3">まだ投稿がありません。</p>
-          <%= link_to "レビューを投稿する", new_anime_review_path,
-              class: "btn btn-primary rounded-pill px-4" %>
+          <%= link_to "レビューを投稿する", new_anime_review_path, class: "btn btn-primary rounded-pill px-4" %>
         </div>
       </div>
     <% end %>

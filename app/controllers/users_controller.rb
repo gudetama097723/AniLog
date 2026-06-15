@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.order(created_at: :desc)
+    @users = User.includes(:anime_reviews).order(created_at: :desc)
   end
 
   def show
@@ -60,14 +60,18 @@ class UsersController < ApplicationController
     redirect_to new_user_path
   end
 
-  def following
-    @user = User.find(params[:id])
-    @users = @user.following
-  end
 
-  def followers
+
+  def connections
     @user = User.find(params[:id])
-    @users = @user.followers
+    @tab = params[:tab] == "followers" ? "followers" : "following"
+
+    @users =
+      if @tab == "followers"
+        @user.followers.includes(:anime_reviews)
+      else
+        @user.following.includes(:anime_reviews)
+      end
   end
 
   private
