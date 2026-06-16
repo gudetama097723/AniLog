@@ -20,6 +20,12 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
+  resources :helpful_reviews, only: [:create, :destroy] do
+    member do
+      patch :toggle_collapsed
+    end
+  end
+
   namespace :admin do
     get "genres/index"
     get "comments/index"

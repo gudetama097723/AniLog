@@ -11,20 +11,40 @@
         <div class="d-flex flex-wrap gap-2 align-items-center text-muted small">
           <%= link_to @anime_review.user.name, user_path(@anime_review.user, return_to: request.fullpath), class: "text-decoration-none fw-semibold" %>
           <span>評価: ⭐ <%= @anime_review.rating %> / 5</span>
-          <span class="badge text-bg-secondary">
-            <%= @anime_review.genre&.name || "未設定" %>
+          <span class="badge text-bg-secondary"><%= @anime_review.genre&.name || "未設定" %></span>
+          <span class="badge text-bg-light border text-dark">
+            参考になった <strong><%= @anime_review.helpful_reviews_count %></strong>件
           </span>
         </div>
       </div>
 
-      <% if @anime_review.user == Current.user %>
-        <div class="d-flex gap-2">
-          <%= link_to "編集", edit_anime_review_path(@anime_review), class: "btn btn-outline-primary btn-sm" %>
-          <%= link_to "削除", anime_review_path(@anime_review),
-              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-              class: "btn btn-outline-danger btn-sm" %>
-        </div>
-      <% end %>
+      <div class="d-flex gap-2 flex-wrap">
+        <% unless @anime_review.user == Current.user %>
+          <% helpful_review = Current.user.helpful_reviews.find_by(anime_review: @anime_review) %>
+
+          <% if helpful_review %>
+            <%= button_to "参考にした投稿から外す",
+                helpful_review_path(helpful_review),
+                method: :delete,
+                class: "btn btn-outline-secondary btn-sm" %>
+          <% else %>
+            <%= button_to "参考になった！",
+                helpful_reviews_path,
+                params: { anime_review_id: @anime_review.id },
+                method: :post,
+                class: "btn btn-outline-primary btn-sm" %>
+          <% end %>
+        <% end %>
+
+        <% if @anime_review.user == Current.user %>
+          <div class="d-flex gap-2">
+            <%= link_to "編集", edit_anime_review_path(@anime_review), class: "btn btn-outline-primary btn-sm" %>
+            <%= link_to "削除", anime_review_path(@anime_review),
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                class: "btn btn-outline-danger btn-sm" %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="border-top pt-3">

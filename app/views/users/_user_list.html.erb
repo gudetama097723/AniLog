@@ -11,7 +11,7 @@
         <div class="flex-grow-1 min-w-0">
           <h2 class="h5 fw-bold mb-1 text-truncate"><%= user.name %></h2>
           <p class="text-muted small mb-0">
-            レビュー <%= user.anime_reviews.size %>件
+            レビュー <%= user.anime_reviews.size %>件 / 参考にされた総数 <%= user.anime_reviews.sum(:helpful_reviews_count) %>件
           </p>
         </div>
 

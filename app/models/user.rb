@@ -29,6 +29,11 @@ class User < ApplicationRecord
            through: :passive_relationships,
            source: :follower
 
+  has_many :helpful_reviews, dependent: :destroy
+  has_many :helpful_anime_reviews,
+           through: :helpful_reviews,
+           source: :anime_review
+
   def follow(user)
     following << user unless self == user
   end
