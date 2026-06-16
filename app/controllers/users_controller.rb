@@ -6,14 +6,26 @@ class UsersController < ApplicationController
 
   def mypage
     @user = Current.user
-    @tab = params[:tab] == "following" ? "following" : "mine"
+    @tab =
+      if params[:tab].in?(%w[mine following helpful])
+        params[:tab]
+      else
+        "mine"
+      end
 
     @anime_reviews =
-      if @tab == "following"
+      case @tab
+      when "following"
         AnimeReview
           .where(user_id: @user.following.select(:id))
-          .includes(:user, :genre)
+         .includes(:user, :genre)
           .order(created_at: :desc)
+      when "helpful"
+        @helpful_reviews = @user.helpful_reviews
+          .includes(anime_review: [:user, :genre])
+          .order(created_at: :desc)
+
+        @helpful_reviews.map(&:anime_review)
       else
         @user.anime_reviews
           .includes(:user, :genre)
