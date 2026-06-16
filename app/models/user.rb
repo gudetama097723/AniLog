@@ -45,4 +45,17 @@ class User < ApplicationRecord
   def following?(user)
     following.include?(user)
   end
+
+  def self.guest
+    find_or_create_by!(email_address: "guest@example.com") do |user|
+      user.name = "ゲストユーザー"
+      user.password = SecureRandom.urlsafe_base64
+      user.introduction = "ゲストログイン用のユーザーです。"
+    end
+  end
+
+  def guest?
+    email_address == "guest@example.com"
+  end
+
 end

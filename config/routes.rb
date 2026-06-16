@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "searches/index"
   resource :session
+  post "guest_login" => "sessions#guest_login"
   resources :passwords, param: :token
 
   root "homes#top"

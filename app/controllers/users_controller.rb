@@ -51,6 +51,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.guest?
+      redirect_to mypage_path, alert: "ゲストユーザーはプロフィールを編集できません"
+      return
+    end
+
     if @user.update(user_update_params)
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
@@ -67,6 +72,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.guest?
+      redirect_to mypage_path, alert: "ゲストユーザーは退会できません"
+      return
+    end
+    
     @user.destroy
     cookies.delete(:session_id)
     redirect_to new_user_path
