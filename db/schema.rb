@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_08_091200) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_16_063117) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,6 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_091200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "genre_id"
+    t.integer "helpful_reviews_count", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["genre_id"], name: "index_anime_reviews_on_genre_id"
     t.index ["user_id"], name: "index_anime_reviews_on_user_id"
   end
@@ -72,6 +74,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_091200) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "helpful_reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "anime_review_id", null: false
+    t.boolean "collapsed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["anime_review_id"], name: "index_helpful_reviews_on_anime_review_id"
+    t.index ["user_id", "anime_review_id"], name: "index_helpful_reviews_on_user_id_and_anime_review_id", unique: true
+    t.index ["user_id"], name: "index_helpful_reviews_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -99,5 +122,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_091200) do
   add_foreign_key "anime_reviews", "users"
   add_foreign_key "comments", "anime_reviews"
   add_foreign_key "comments", "users"
+  add_foreign_key "helpful_reviews", "anime_reviews"
+  add_foreign_key "helpful_reviews", "users"
   add_foreign_key "sessions", "users"
 end

@@ -6,7 +6,31 @@ class UsersController < ApplicationController
 
   def mypage
     @user = Current.user
-    @anime_reviews = @user.anime_reviews.order(created_at: :desc)
+    @tab =
+      if params[:tab].in?(%w[mine following helpful])
+        params[:tab]
+      else
+        "mine"
+      end
+
+    @anime_reviews =
+      case @tab
+      when "following"
+        AnimeReview
+          .where(user_id: @user.following.select(:id))
+         .includes(:user, :genre)
+          .order(created_at: :desc)
+      when "helpful"
+        @helpful_reviews = @user.helpful_reviews
+          .includes(anime_review: [:user, :genre])
+          .order(created_at: :desc)
+
+        @helpful_reviews.map(&:anime_review)
+      else
+        @user.anime_reviews
+          .includes(:user, :genre)
+          .order(created_at: :desc)
+      end
   end
 
   def new
@@ -27,6 +51,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.guest?
+      redirect_to mypage_path, alert: "ゲストユーザーはプロフィールを編集できません"
+      return
+    end
+
     if @user.update(user_update_params)
       redirect_to mypage_path, notice: "プロフィールを更新しました"
     else
@@ -35,7 +64,27 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.order(created_at: :desc)
+    @sort = params[:sort].presence || "newest"
+
+    @users =
+      case @sort
+      when "helpful"
+        User
+          .left_joins(anime_reviews: :helpful_reviews)
+          .includes(:anime_reviews)
+          .group("users.id")
+          .order("COUNT(helpful_reviews.id) DESC, users.created_at DESC")
+      when "followers"
+        User
+          .left_joins(:passive_relationships)
+          .includes(:anime_reviews)
+          .group("users.id")
+          .order("COUNT(relationships.id) DESC, users.created_at DESC")
+      else
+        User
+          .includes(:anime_reviews)
+          .order(created_at: :desc)
+      end
   end
 
   def show
@@ -43,11 +92,29 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.guest?
+      redirect_to mypage_path, alert: "ゲストユーザーは退会できません"
+      return
+    end
+    
     @user.destroy
     cookies.delete(:session_id)
     redirect_to new_user_path
   end
 
+
+
+  def connections
+    @user = User.find(params[:id])
+    @tab = params[:tab] == "followers" ? "followers" : "following"
+
+    @users =
+      if @tab == "followers"
+        @user.followers.includes(:anime_reviews)
+      else
+        @user.following.includes(:anime_reviews)
+      end
+  end
 
   private
 

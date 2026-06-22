@@ -35,3 +35,10 @@ html {
   object-fit: cover;
   border-radius: 8px;
 }
+
+.comment-user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
