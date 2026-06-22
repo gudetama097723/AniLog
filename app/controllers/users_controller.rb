@@ -64,7 +64,27 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:anime_reviews).order(created_at: :desc)
+    @sort = params[:sort].presence || "newest"
+
+    @users =
+      case @sort
+      when "helpful"
+        User
+          .left_joins(anime_reviews: :helpful_reviews)
+          .includes(:anime_reviews)
+          .group("users.id")
+          .order("COUNT(helpful_reviews.id) DESC, users.created_at DESC")
+      when "followers"
+        User
+          .left_joins(:passive_relationships)
+          .includes(:anime_reviews)
+          .group("users.id")
+          .order("COUNT(relationships.id) DESC, users.created_at DESC")
+      else
+        User
+          .includes(:anime_reviews)
+          .order(created_at: :desc)
+      end
   end
 
   def show

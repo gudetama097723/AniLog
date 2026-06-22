@@ -4,6 +4,20 @@ class AnimeReviewsController < ApplicationController
 
   def index
     @anime_reviews = AnimeReview.order(created_at: :desc)
+
+    @sort = params[:sort].presence || "newest"
+
+    @anime_reviews =
+      case @sort
+      when "rating"
+        AnimeReview.includes(:user, :genre).order(rating: :desc, created_at: :desc)
+      when "helpful"
+        AnimeReview.includes(:user, :genre).order(helpful_reviews_count: :desc, created_at: :desc)
+      when "comments"
+        AnimeReview.includes(:user, :genre).order(comments_count: :desc, created_at: :desc)
+      else
+        AnimeReview.includes(:user, :genre).order(created_at: :desc)
+      end
   end
 
   def show
