@@ -30,7 +30,9 @@
 ​
 ## 設計書
 
-後ほど作成予定
+- [アプリケーション詳細設計書](https://docs.google.com/spreadsheets/d/1qoasTXT3Rusex7ouPbJUIgUMM5Y-4PWFxQfMAO4Md58/edit?gid=549108681#gid=549108681)
+- [UI Flows](https://app.diagrams.net/?splash=0#G1cJ5ZkS1uLxP27HnronTTl_GWZ_RHbV9d#%7B%22pageId%22%3A%221JJRaOdBqNP6RSCv-qk-%22%7D)
+- [ER図](https://app.diagrams.net/#G1MqIQX15l5oZMUh-msS7B3AyiztKpheLl#%7B%22pageId%22%3A%22c0_H3szxdNX02Z5mxzGI%22%7D)
 ​
 ## 開発環境
 - OS：Windows
